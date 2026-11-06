@@ -1,4 +1,4 @@
-/* Crispus Profit Engine — offline app (v1.5, Nov 6, 2026).
+/* Crispus Profit Engine — offline app (v1.6, Nov 6, 2026: command-center look in ui.js).
  * Works with no internet: a full copy of the Profit Engine data is kept on this device, encrypted with your PIN
  * (AES-GCM, key made from the PIN with PBKDF2). Every change is saved on the device at once and queued; when the
  * device is online the queue is sent to the Profit Engine (Apps Script) and a fresh copy comes back.
@@ -285,7 +285,7 @@
       '<div class="grid">' + cards + '</div>';
   }
   function navTop() {
-    return '<div><a class="btn light" href="#/">All businesses</a><a class="btn light" href="#/setup">Setup</a><a class="btn light" href="#/listings">Listings &amp; cards</a>' +
+    return '<div class="toolbar"><a class="btn light" href="#/all">All businesses</a><a class="btn light" href="#/setup">Setup</a><a class="btn light" href="#/listings">Listings &amp; cards</a>' +
       '<button class="light" data-act="run">Check now</button><a class="btn light" href="#/sync">Sync</a></div>';
   }
   function bizPage(key, jump) {
@@ -401,6 +401,8 @@
   }
 
   // ------------------------------------------------------------ router
+  window.PE = { T: T, C: C, S: S, STAGES: STAGES, planFor: planFor, clientsView: clientsView, change: change, sync: function (f) { return sync(f); },
+    online: online, esc: esc, num: num, money: money, rid: rid, today: today, issueList: issueList, listingIssues: function () { return listingIssues(); }, render: function () { render(); } };
   function render() {
     status();
     if (!S.vault) return;
@@ -410,11 +412,14 @@
     else if (h[0] === 'setup') html = setupPage(h[1] ? decodeURIComponent(h[1]) : '');
     else if (h[0] === 'listings') html = listingsPage();
     else if (h[0] === 'sync') html = syncPage();
-    else html = home();
+    else if (h[0] === 'all') html = home();
+    else if (window.PEUI && PEUI.views[h[0]]) html = PEUI.views[h[0]](h.slice(1));
+    else html = window.PEUI ? PEUI.views.dash([]) : home();
     app.innerHTML = html;
     var jump = h[0] === 'biz' ? h[2] : '';
     var el = jump && document.getElementById(jump);
     if (el) el.scrollIntoView(); else if (!jump) window.scrollTo(0, 0);
+    if (window.PEUI && PEUI.after) PEUI.after(h);
   }
   window.addEventListener('hashchange', function () { if (S.vault) render(); });
 

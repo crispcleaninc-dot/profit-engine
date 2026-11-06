@@ -1,22 +1,32 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#1B2951">
+<meta name="theme-color" content="#14204A">
 <title>Crispus Profit Engine</title>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 <header class="top">
-  <a class="brand" href="#/">Profit Engine</a>
-  <button id="netBtn" class="net" type="button" aria-label="Sync status">…</button>
+  <a class="brand" href="#/"><span class="logo">PE</span><span class="bname">Profit Engine</span></a>
+  <form id="searchForm" class="search" role="search"><span id="searchIco" class="sico"></span><input name="q" type="search" placeholder="Search leads, clients, businesses" aria-label="Search"></form>
+  <div class="tools">
+    <button id="installBtn" class="tbtn" type="button" data-ui="install" aria-label="Install app" hidden></button>
+    <button id="themeBtn" class="tbtn" type="button" data-ui="theme" aria-label="Light or dark"></button>
+    <button id="netBtn" class="net" type="button" aria-label="Sync status">…</button>
+  </div>
 </header>
+<nav id="nav" class="nav-main" aria-label="Main"></nav>
 <main id="app"><p class="muted">Loading…</p></main>
+<button id="fab" class="fab" type="button" data-ui="quick" aria-label="Quick add"></button>
+<div id="sheet" class="sheet"></div>
 <script src="config.js"></script>
 <script src="app.js"></script>
+<script src="ui.js"></script>
 </body>
 </html>

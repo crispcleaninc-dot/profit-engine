@@ -1,7 +1,7 @@
 /* Caches only the app's own files so it opens with no internet.
    Business data is never cached here: it lives encrypted in the app's own storage (IndexedDB). */
-var CACHE = 'pe-v2';
-var FILES = ['./', 'index.html', 'styles.css', 'app.js', 'ui.js', 'config.js', 'card.html', 'card.js', 'manifest.webmanifest',
+var CACHE = 'pe-v3';
+var FILES = ['./', 'index.html', 'styles.css', 'app.js', 'ui.js', 'config.js', 'studio.js', 'card.html', 'card.js', 'manifest.webmanifest',
              'icon-192.png', 'icon-512.png', 'apple-touch-icon.png'];
 self.addEventListener('install', function (e) {
   e.waitUntil(caches.open(CACHE).then(function (c) { return c.addAll(FILES); }).then(function () { return self.skipWaiting(); }));
